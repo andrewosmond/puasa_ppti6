@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<!-- Firebase -->
+	<script src="https://www.gstatic.com/firebasejs/3.6.3/firebase.js"></script>
+
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+	<!-- My Javascript -->
+	<script src="script.js"></script>
+
+	<!-- Favicon -->
+	<link rel="icon" href="avengers.png">
+	
+	<title>Puasa PPTI6</title>
+</head>
+<body>
+	<!-- Navbar -->
+	<nav class="navbar navbar-dark bg-dark">
+		<div class="container">
+			<span class="navbar-brand mx-auto order-0">Puasa PPTI6</span>
+		</div>
+	</nav>
+
+	<div class="container">
+		<br>
+		<!-- Nav pills -->
+		<ul class="nav nav-pills" role="tablist">
+			<li class="nav-item">
+	  			<a class="nav-link active" data-toggle="pill" href="#daftar_puasa">Daftar Puasa</a>
+			</li>
+			<li class="nav-item">
+	  			<a class="nav-link" data-toggle="pill" href="#lihat_list">Lihat List</a>
+			</li>
+		</ul>
+
+		<!-- Tab panes -->
+		<div class="tab-content">
+			<div id="daftar_puasa" class="container tab-pane active"><br>
+	  			<h3>Daftar Puasa</h3>
+	  			<div id="periode">
+	  				<p><span class="desc">Periode Daftar : Senin - Kamis</span> <br> <span class="periode"></span></p>
+	  			</div>
+
+	  			<div class="alert alert-danger" role="alert" style="display:none;" id="nimAlert">NIMnya belum valid ._.</div>
+	  			<div class="alert alert-success" role="alert" style="display:none;" id="submitAlert">Daftar puasa berhasil!</div>
+
+	  			<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text">NIM</span>
+					</div>
+					<input type="text" class="form-control" name="myNIM" id="myNIM" oninput="fillName();" placeholder="Masukkan NIM anda..">
+				</div>
+
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text">Nama</span>
+					</div>
+					<input type="text" class="form-control" name="myName" id="myName" placeholder="Terisi otomatis mengikuti NIM." required readonly>
+				</div>
+
+				<div class="card">
+					<div class="card-header">Silahkan memilih hari :</div>
+					<div class="card-body">
+						<div class="custom-control custom-checkbox">
+							<input type="checkbox" class="custom-control-input" id="chkSenin" name="chkSenin">
+							<label class="custom-control-label" for="chkSenin">Senin</label>
+						</div>
+
+						<div class="custom-control custom-checkbox">
+							<input type="checkbox" class="custom-control-input" id="chkSelasa" name="chkSelasa">
+							<label class="custom-control-label" for="chkSelasa">Selasa</label>
+						</div>
+
+						<div class="custom-control custom-checkbox">
+							<input type="checkbox" class="custom-control-input" id="chkRabu" name="chkRabu">
+							<label class="custom-control-label" for="chkRabu">Rabu</label>
+						</div>
+
+						<div class="custom-control custom-checkbox">
+							<input type="checkbox" class="custom-control-input" id="chkKamis" name="chkKamis">
+							<label class="custom-control-label" for="chkKamis">Kamis</label>
+						</div>
+
+						<div class="custom-control custom-checkbox">
+							<input type="checkbox" class="custom-control-input" id="chkJumat" name="chkJumat">
+							<label class="custom-control-label" for="chkJumat">Jumat</label>
+						</div>
+
+						<br>
+						<button class="btn btn-primary btn-lg btn-block" id="upload" type="submit" onclick="validate();">Submit</button>
+						<div class="alert alert-light">Cukup mengisi ulang jika ingin mengubah hari</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="lihat_list" class="container tab-pane fade"><br>
+	  			<h3>Lihat List</h3>
+	  			<p>Cek teman Anda yang sedang berpuasa!</p>
+
+	  			<div class="card">
+	  				<div class="card-header">List Puasa</div>
+	  				<div class="card-body" id="panelPuasa"></div>
+	  				<div class="alert alert-light">Refresh untuk lihat perubahan</div>
+	  			</div>
+
+	  			<button class="btn btn-primary btn-lg btn-block" id="view" type="refresh" onclick="displayList();">Refresh</button>
+			</div>
+		</div>
+	</div>
+</body>
+<footer>
+	<div class="container">
+		<div class="alert alert-light">Copyright © 2019 AVENGERS</div>
+	</div>
+</footer>
+</html>
