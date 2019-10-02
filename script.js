@@ -85,6 +85,7 @@ function fillName(){
 	else if (nim.value === "2201828032") name.value = "Alexius Pangestu";
 	else if (nim.value === "2201828026") name.value = "Alvin Tanjaya";
 	else if (nim.value === "2201828000") name.value = "Andrew Osmond";
+	else if (nim.value === "2201827995") name.value = "Angelica Halim";
 	else if (nim.value === "2201827982") name.value = "Billie Johannes Lee";
 	else if (nim.value === "2201827976") name.value = "Calvin";
 	else if (nim.value === "2201827963") name.value = "Candra Wijaya";
